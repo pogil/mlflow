@@ -342,5 +342,4 @@ def autolog():
         return result
 
     settings = gorilla.Settings(allow_hit=True, store_hit=True)
-    gorilla.apply(
-            gorilla.Patch(Estimator, "fit", fit, settings=settings))
+    gorilla.apply(gorilla.Patch(Estimator, "fit", fit, settings=settings))
