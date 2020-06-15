@@ -13,7 +13,6 @@ on:
 jobs:
   debug:
     runs-on: ubuntu-latest
-    if: ${{ github.event_name == 'issue_comment' }}
     steps:
       - name: $github
         run: echo "$GITHUB_CONTEXT"
