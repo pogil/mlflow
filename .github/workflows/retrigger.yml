@@ -26,7 +26,7 @@ jobs:
         suites_request = requests.get(check_suites_url, headers=suites_headers)
         suite_id = str(suites_request.json()["check_suites"][0]["id"])
         print("Check suite id: " + suite_id)
-        rerequst_url = pr_json["head"]["repo"]["url"] + "/check-suites/" + suite_id + "/rerequest"
+        rerequest_url = pr_json["head"]["repo"]["url"] + "/check-suites/" + suite_id + "/rerequest"
         print("Triggering check suite rerequest: " + rerequest_url)
         suites_rerequest = requests.post(rerequest_url, headers=suites_headers)
 
