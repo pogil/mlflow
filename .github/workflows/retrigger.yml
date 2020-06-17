@@ -20,7 +20,7 @@ jobs:
         pr_sha = pr_request.json()["head"]["sha"]
         suites_headers = {"Accept" : "application/vnd.github.antiope-preview+json", "authorization": "Bearer ${{ secrets.GITHUB_TOKEN }}"}
         suites_request = requests.get("https://api.github.com/repos/mlflow/mlflow/commits/" + pr_sha + "/check-suites", headers=suites_headers)
-        print(suites_requests.json())
+        print(suites_request.json())
         suite_id = str(suites_request.json()["check_suites"][0]["id"])
         suites_rerequest = requests.post("https://api.github.com/repos/mlflow/mlflow/check-suites/" + suite_id + "/rerequest", headers=suites_headers)
 
