@@ -9,6 +9,8 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ contains(github.event.comment.body, 'trigger checks') }}
     steps:
+    - name: Install requests
+      run: pip install requests
     - name: Rerun check suite
       shell: python
       run: |
