@@ -21,7 +21,7 @@ jobs:
         pr_sha = pr_json["head"]["sha"]
         print("PR sha: " + pr_sha)
         check_suites_url = pr_json["head"]["repo"]["commits_url"].replace("{/sha}", "/" + pr_sha) + "/check-suites"
-        print("Looking up check suites from " + check_suites_url
+        print("Looking up check suites from " + check_suites_url)
         suites_headers = {"Accept" : "application/vnd.github.antiope-preview+json", "authorization": "Bearer ${{ secrets.GITHUB_TOKEN }}"}
         suites_request = requests.get(check_suites_url, headers=suites_headers)
         suite_id = str(suites_request.json()["check_suites"][0]["id"])
