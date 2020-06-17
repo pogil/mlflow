@@ -19,11 +19,14 @@ jobs:
         pr_request = requests.get("${{ github.event.issue.pull_request.url }}")
         pr_json = pr_request.json()
         pr_sha = pr_json["head"]["sha"]
-        print(pr_sha)
-        commits_url = pr_json["head"]["repo"]["commits_url"].replace("{/sha}", "/" + pr_sha)
+        print("PR sha: " + pr_sha)
+        check_suites_url = pr_json["head"]["repo"]["commits_url"].replace("{/sha}", "/" + pr_sha) + "/check-suites"
+        print("Looking up check suites from " + check_suites_url
         suites_headers = {"Accept" : "application/vnd.github.antiope-preview+json", "authorization": "Bearer ${{ secrets.GITHUB_TOKEN }}"}
-        suites_request = requests.get(commits_url + "/check-suites", headers=suites_headers)
-        print(suites_request.json())
+        suites_request = requests.get(check_suites_url, headers=suites_headers)
         suite_id = str(suites_request.json()["check_suites"][0]["id"])
-        suites_rerequest = requests.post(pr_json["head"]["repo"]["url"] + "/check-suites/" + suite_id + "/rerequest", headers=suites_headers)
+        print("Check suite id: " + suite_id)
+        rerequst_url = pr_json["head"]["repo"]["url"] + "/check-suites/" + suite_id + "/rerequest"
+        print("Triggering check suite rerequest: " + rerequest_url)
+        suites_rerequest = requests.post(rerequest_url, headers=suites_headers)
 
